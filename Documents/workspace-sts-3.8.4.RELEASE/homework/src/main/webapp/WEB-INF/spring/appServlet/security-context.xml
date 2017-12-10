@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security 
+	http://www.springframework.org/schema/security/spring-security-4.2.xsd 
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select username, password, enabled from users2 where username=?"
+				authorities-by-username-query="select username, authority from authorities where username=?" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url access="permitAll" pattern="/" />
+		<security:intercept-url access="permitAll" pattern="/login" />
+		<security:intercept-url access="isAuthenticated()" pattern="/offers" />
+			<security:intercept-url access="permitAll" pattern="/history" />
+		<security:intercept-url access="permitAll" pattern="/apply" />
+		<security:intercept-url access="permitAll" pattern="/resources/**" />
+		<security:intercept-url access="denyAll" pattern="/**" />
+		<security:form-login login-page="/login"
+			authentication-failure-url="/login?error" />
+	</security:http>
+</beans>
