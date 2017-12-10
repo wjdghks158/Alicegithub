@@ -29,7 +29,7 @@ public class OfferController {
 		System.out.println("사이즈 측정"+lectures.size());
 		model.addAttribute("lectures", lectures);
 		List<SemesterInfo> semesters = new ArrayList<SemesterInfo>();
-		
+		System.out.println("asd");
 		//HashMap<String, Integer> grades = new HashMap<String, Integer>();
 		semesters.clear();
 		semesters.add(new SemesterInfo());
